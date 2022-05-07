@@ -7,7 +7,7 @@ const request = require('request-promise-native'); //deprecated..
 
 commander
     .option('--id <app id>', 'id of app to run')
-    .option('--name <process name>', 'name of process')
+    .option('--pname <process name>', 'name of process')
     .option('--input <input id>', 'add an input to the application (by input id)', util.collect, [])
     .option('--project <project id>', 'the project to store the output dataset from an app')
     .option('--preferred-resource <resource id>', 'user-preferred resource to use to run an app')
@@ -30,7 +30,7 @@ util.loadJwt().then(jwt => {
 
     runApp(headers, {
         app: commander.id,
-        name: commander.name,
+        name: commander.pname,
         inputs: commander.input,
         project: commander.project,
         resource: commander.preferredResource,
