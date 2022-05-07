@@ -7,6 +7,7 @@ const request = require('request-promise-native'); //deprecated..
 
 commander
     .option('--id <app id>', 'id of app to run')
+    .option('--name <process name>', 'name of process')
     .option('--input <input id>', 'add an input to the application (by input id)', util.collect, [])
     .option('--project <project id>', 'the project to store the output dataset from an app')
     .option('--preferred-resource <resource id>', 'user-preferred resource to use to run an app')
@@ -29,6 +30,7 @@ util.loadJwt().then(jwt => {
 
     runApp(headers, {
         app: commander.id,
+        name: commander.name,
         inputs: commander.input,
         project: commander.project,
         resource: commander.preferredResource,
@@ -172,7 +174,7 @@ function runApp(headers, opt) {
 
         // create instance
         let instanceName = (apps[0].tags||'CLI Process') + "." + (Math.random()); //TODO Math.random() is ugly..?
-        let instance = await util.findOrCreateInstance(headers, instanceName, { project, desc: "(CLI) " + app.name });
+        let instance = await util.findOrCreateInstance(headers, instanceName, { project, desc: opt.name });
         
         // prepare config to submit the app
         let values = {};
