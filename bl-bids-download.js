@@ -28,7 +28,7 @@ try {
     process.exit(1);
 }
 
-util.loadJwt().then(async jwt => {
+util.loadJwtOrExit().then(async jwt => {
     let headers = { "Authorization": "Bearer " + jwt };
 
     //construct find query to pass to downscript api

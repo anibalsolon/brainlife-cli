@@ -18,7 +18,7 @@ try {
     process.exit(1);
 }
 
-util.loadJwt().then(jwt => {
+util.loadJwtOrExit().then(jwt => {
     let headers = { "Authorization": "Bearer " + jwt };
     request.get({ url: config.api.amaretti+"/task?find=" + JSON.stringify({_id: commander.id}), headers, json: true}).then(body=>{
         if (body.tasks.length == 0) throw new Error("no tasks found with id " + commander.id);

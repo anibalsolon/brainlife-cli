@@ -16,7 +16,7 @@ commander
     .option('-j, --json', 'output data in json format')
     .parse(process.argv);
 
-util.loadJwt().then(jwt => {
+util.loadJwtOrExit().then(jwt => {
     let headers = { "Authorization": "Bearer " + jwt };
     util.queryProjects(headers, {
         id: commander.id,

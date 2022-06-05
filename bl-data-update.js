@@ -26,7 +26,7 @@ try {
     process.exit(1);
 }
 
-util.loadJwt().then(jwt => {
+util.loadJwtOrExit().then(jwt => {
 
     //find the data to update
     axios.get(config.api.warehouse + '/dataset', { 

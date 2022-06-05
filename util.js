@@ -58,12 +58,11 @@ exports.refresh = async function(opt, headers) {
  * Load the user's jwt token
  * @returns {Promise<string>}
  */
-exports.loadJwt = function() {
+ exports.loadJwt = function() {
     return new Promise((resolve, reject) => {
         fs.stat(config.path.jwt, (err, stat) => {
             if (err) {
                 return reject("Couldn't find your access token. Please try logging in by running 'bl login'");
-                process.exit(1);
             }
             let jwt = fs.readFileSync(config.path.jwt, "ascii").trim();
             let dec = jsonwebtoken.decode(jwt);
@@ -71,6 +70,15 @@ exports.loadJwt = function() {
             if(dec.exp < Date.now()/1000) return reject("You access token is expired. Please try logging in by running 'bl login'.");
             
             resolve(jwt); 
+        });
+    });
+}
+exports.loadJwtOrExit = function() {
+    return new Promise((resolve, reject) => {
+        return exports.loadJwt().then(resolve).catch((err) => {
+            console.error(err);
+            reject();
+            process.exit(1);
         });
     });
 }

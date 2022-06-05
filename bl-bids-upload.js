@@ -30,7 +30,7 @@ try {
     process.exit(1);
 }
 
-util.loadJwt().then(async jwt => {
+util.loadJwtOrExit().then(async jwt => {
     let headers = { "Authorization": "Bearer " + jwt };
     bids_walker.walk(commander.directory, async (err, bids)=>{
         if(err) throw err;

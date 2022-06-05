@@ -17,7 +17,7 @@ commander
     .option('-j, --json', 'output info about downloaded data object in json format')
     .parse(process.argv);
 
-util.loadJwt().then(jwt => {
+util.loadJwtOrExit().then(jwt => {
     let headers = { "Authorization": "Bearer " + jwt };
     if (commander.args.length > 0 && util.isValidObjectId(commander.args[0])) {
         commander.id = commander.id || commander.args[0];

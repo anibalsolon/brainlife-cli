@@ -25,7 +25,7 @@ try {
     process.exit(1);
 }
 
-util.loadJwt().then(jwt => {
+util.loadJwtOrExit().then(jwt => {
     let headers = { "Authorization": "Bearer " + jwt };
 
     runApp(headers, {

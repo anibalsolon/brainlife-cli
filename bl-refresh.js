@@ -17,7 +17,7 @@ let schema = { properties: {} };
 if (!commander.username) schema.properties.username = {required: true};
 schema.properties.password = { required: true, hidden: true };
 
-util.loadJwt().then(async jwt => {
+util.loadJwtOrExit().then(async jwt => {
     if (commander.h) commander.help();
     let headers = { "Authorization": "Bearer " + jwt };
     await util.refresh({ttl: commander.ttl}, headers);

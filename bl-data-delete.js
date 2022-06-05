@@ -17,7 +17,7 @@ if (commander.args.length > 0 && util.isValidObjectId(commander.args[0])) {
     commander.args = commander.args.slice(1);
 }
 
-util.loadJwt().then(jwt => {
+util.loadJwtOrExit().then(jwt => {
     let headers = { "Authorization": "Bearer " + jwt };
 
     axios.delete(config.api.warehouse+"/dataset/"+commander.id, {headers}).then(res=>{
